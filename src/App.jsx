@@ -6,6 +6,8 @@ import Navabar from './components/Navabar'
 import Cart from './pages/Cart'
 import { ToastContainer } from 'react-toastify';
 import ViewProduct from './pages/ViewProduct'
+import Signup from './pages/Signup'
+import Login from './pages/Login'
 
 function App() {
   
@@ -20,6 +22,8 @@ function App() {
             <Route path='/' element={<Home/>}/>
             <Route path='/cart' element={<Cart/>}/>
             <Route path='/view' element={<ViewProduct/>}/>
+            <Route path='/register' element={<Signup/>}/>
+            <Route path='/login' element={<Login/>}/>
         </Routes>
         <ToastContainer />
      </BrowserRouter>
