@@ -60,6 +60,7 @@ getAllProducts()
       let productsCopy = allproducts.filter((ele)=>ele.title.toLowerCase().includes(val.toLowerCase()) || ele.category.toLowerCase().includes(val.toLowerCase()))
       setfilteredProducts(productsCopy)
       searchRef.current.value = ""
+      setcurrentPage(1); // Reset pagination
       // console.log(productsCopy)
     }
     let finalProducts = [...allproducts]
@@ -70,12 +71,13 @@ getAllProducts()
 
     //******************* */ pagination code starts from here*********************************
 
+    console.log(finalProducts)
     const [currentPage, setcurrentPage] = useState(2);
     let itemPerPage = 8;
     let lastIndex = currentPage * itemPerPage;
     let firstIndex = lastIndex - itemPerPage;
 
-    let slicedArr = finalProducts.slice(firstIndex, lastIndex);
+    let slicedArr = [...finalProducts].slice(firstIndex, lastIndex);
 
     console.log(slicedArr)
 
