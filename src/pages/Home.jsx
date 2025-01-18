@@ -67,7 +67,33 @@ getAllProducts()
       finalProducts = filteredProducts
     }
 
-   
+
+    //******************* */ pagination code starts from here*********************************
+
+    const [currentPage, setcurrentPage] = useState(2);
+    let itemPerPage = 8;
+    let lastIndex = currentPage * itemPerPage;
+    let firstIndex = lastIndex - itemPerPage;
+
+    let slicedArr = finalProducts.slice(firstIndex, lastIndex);
+
+    console.log(slicedArr)
+
+    let noOfbutton = Math.ceil(finalProducts.length/itemPerPage)
+    console.log(noOfbutton)
+    
+
+   const handleNext = ()=>{
+      if(currentPage < noOfbutton){
+        setcurrentPage(currentPage+1)
+      }
+   }
+
+   const handlePrev = ()=>{
+    if(currentPage >1){
+      setcurrentPage(currentPage-1)
+    }
+   }
    
   return (
    <div className="font-sans flex gap-2 p-4">
@@ -88,7 +114,7 @@ getAllProducts()
    </div>
   <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
    {
-    finalProducts.map((ele, i )=>{
+    slicedArr.map((ele, i )=>{
         return  <div key={ele.id} className="bg-gray-100 p-2 overflow-hidden cursor-pointer">
         <div className="bg-white flex flex-col h-full">
           <div className="w-full">
@@ -106,6 +132,32 @@ getAllProducts()
    }
   
   </div>
+
+  {/* {
+    Array(noOfbutton).fill('').map((ele,i)=>{
+      return <p>{i+1}</p>
+    })
+  } */}
+<nav className='mt-7' aria-label="Page navigation example">
+  <ul className="inline-flex flex-wrap -space-x-px text-sm">
+    <li onClick={handlePrev}>
+      <a href="#" className="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Previous</a>
+    </li>
+{
+  Array(noOfbutton).fill(0).map((item,i)=>{
+    return  <li onClick={()=>setcurrentPage(i+1)}>
+    <a href="#" className={`flex items-center justify-center px-3 ${i+1==currentPage?' bg-blue-800':'bg-gray-700'} h-8 leading-tight text-white  border border-gray-300  `}>{i+1}</a>
+  </li>
+  })
+}
+   
+
+    <li onClick={handleNext}>
+      <a href="#" className={`flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100   hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white`}>Next</a>
+    </li>
+  </ul>
+</nav>
+
   </div>
 </div>
 
